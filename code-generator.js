@@ -42,6 +42,8 @@ class JavaCodeGenerator {
 
     /** @member {string} */
     this.basePath = basePath
+
+    this.topLevel = true
   }
 
   /**
@@ -76,8 +78,9 @@ class JavaCodeGenerator {
     // Package
     if (elem instanceof type.UMLPackage) {
       fullPath = path.join(basePath, elem.name)
-      if (fs.existsSync(fullpath))
+      if (this.topLevel && fs.existsSync(fullpath))
       {
+        this.topLevel = false
         fs.rmdirSync(fullPath)
       }
       fs.mkdirSync(fullPath)
