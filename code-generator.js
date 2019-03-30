@@ -64,7 +64,7 @@ class JavaCodeGenerator {
       return indent.join('')
     }
   }
-  deleteFolderRecursive = function (path)
+  deleteFolderRecursive(path)
   {
     if (fs.existsSync(path))
     {
