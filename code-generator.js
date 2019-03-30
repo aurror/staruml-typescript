@@ -78,7 +78,7 @@ class JavaCodeGenerator {
     // Package
     if (elem instanceof type.UMLPackage) {
       fullPath = path.join(basePath, elem.name)
-      if (this.topLevel && fs.existsSync(fullpath))
+      if (this.topLevel && fs.existsSync(fullPath))
       {
         this.topLevel = false
         fs.rmdirSync(fullPath)
