@@ -64,7 +64,24 @@ class JavaCodeGenerator {
       return indent.join('')
     }
   }
-
+  deleteFolderRecursive = function (path)
+  {
+    if (fs.existsSync(path))
+    {
+      fs.readdirSync(path).forEach(function (file, index)
+      {
+        var curPath = path + "/" + file;
+        if (fs.lstatSync(curPath).isDirectory())
+        { // recurse
+          deleteFolderRecursive(curPath);
+        } else
+        { // delete file
+          fs.unlinkSync(curPath);
+        }
+      });
+      fs.rmdirSync(path);
+    }
+  };
   /**
    * Generate codes from a given element
    * @param {type.Model} elem
@@ -78,9 +95,10 @@ class JavaCodeGenerator {
     // Package
     if (elem instanceof type.UMLPackage) {
       fullPath = path.join(basePath, elem.name)
-      if (!fs.existsSync(fullPath))
+      if (this.topLevel && fs.existsSync(fullPath))
       {
-        fs.mkdirSync(fullPath)
+        this.topLevel = false
+        deleteFolderRecursive(fullPath)
       }
       
       if (Array.isArray(elem.ownedElements)) {
