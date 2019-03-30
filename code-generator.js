@@ -98,7 +98,7 @@ class JavaCodeGenerator {
       if (this.topLevel && fs.existsSync(fullPath))
       {
         this.topLevel = false
-        deleteFolderRecursive(fullPath)
+        this.deleteFolderRecursive(fullPath)
       }
       
       if (Array.isArray(elem.ownedElements)) {
