@@ -100,7 +100,7 @@ class JavaCodeGenerator {
         this.topLevel = false
         this.deleteFolderRecursive(fullPath)
       }
-      
+      fs.mkdirSync(fullPath)
       if (Array.isArray(elem.ownedElements)) {
         elem.ownedElements.forEach(child => {
           return this.generate(child, fullPath, options)
