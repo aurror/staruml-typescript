@@ -78,12 +78,11 @@ class JavaCodeGenerator {
     // Package
     if (elem instanceof type.UMLPackage) {
       fullPath = path.join(basePath, elem.name)
-      if (this.topLevel && fs.existsSync(fullPath))
+      if (!fs.existsSync(fullPath))
       {
-        this.topLevel = false
-        fs.rmdirSync(fullPath)
+        fs.mkdirSync(fullPath)
       }
-      fs.mkdirSync(fullPath)
+      
       if (Array.isArray(elem.ownedElements)) {
         elem.ownedElements.forEach(child => {
           return this.generate(child, fullPath, options)
